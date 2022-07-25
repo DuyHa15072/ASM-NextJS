@@ -23,10 +23,9 @@ app.use(express.json());
 
 // connnect database
 mongoose
-  .connect(process.env.MONGODB_URL)
-  .then(() => console.log('Kết nối db thành công'))
-  .catch((error) => console.log(error));
-
+  .connect('mongodb://127.0.0.1:27017/asmnexjs')
+  .then(() => console.log('Connect db thanh cong'));
+  
 // Router
 app.use('/api', productRoute);
 app.use('/api', postRoute);
