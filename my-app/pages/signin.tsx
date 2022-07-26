@@ -56,7 +56,7 @@ const SignIn = () => {
     </div>
     {/* Image Section */}
     <div className="w-1/2 shadow-2xl">
-        <img className="object-cover w-full h-screen hidden md:block" src="https://static.nike.com/a/images/t_prod/w_1920,c_limit,f_auto,q_auto/ef874a51-5b1d-4c89-89a4-ee9b5b679eb6/image.jpg" />
+        <img className="object-cover w-full h-screen hidden md:block" src="https://i.pinimg.com/564x/cb/62/0b/cb620bdee2c4a035824dfe4897b3c5aa.jpg" />
     </div>
 </div>
   )

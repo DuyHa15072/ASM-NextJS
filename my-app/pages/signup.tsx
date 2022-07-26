@@ -19,6 +19,7 @@ const Signup = () => {
       } catch (error) {
         console.log(error);
       }
+    }
   return (
     <div className="w-full flex flex-wrap">
     <div className="w-full md:w-1/2 flex flex-col">
@@ -69,7 +70,6 @@ const Signup = () => {
     </div>
      </div>
   )
-}
 }
 Signup.Layout = Login;
 export default Signup
