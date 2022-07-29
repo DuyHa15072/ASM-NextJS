@@ -1,40 +1,65 @@
 /** @format */
 
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import { createHmac } from "crypto";
+import {v4 as uuidv4 } from "uuid";
 
-import { createHmac } from 'crypto';
 
-const userSchema = new mongoose.Schema({
-  name: { type: String, trim: true, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-});
+const userSchema = mongoose.Schema(
+    {
+    name:{
+        type: String,
+        required: true,
+        maxLength: 30
+    },
+    phonenumber: {
+        type: Number,    
+        required: true,
+        maxLength: 30
+    },
+    address: {
+        type: String,
+        required: true,
+    },
+    email:{
+        type: String,
+        required: true,
+        unique:true
+    },
+    password:{
+        type: String,
+        required: true,
+    },
+    salt:{
+        type :String
+    },
+    role: {
+        type: Number,
+        default: 0
+    },
 
+    },{ timestamps: true }
+);
 userSchema.methods = {
-  authenticate(password) {
+    encryptPassword(password){ //b2
+        if(!password) return;
+        try {
+            return createHmac('sha256',this.salt).update(password).digest('hex'); 
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    authenticate(password){
+        return this.password == this.encryptPassword(password);
+    },
+}
+userSchema.pre("save", async function save(next){ 
     try {
-      return this.password == this.encrytPassword(password);
+            this.salt = uuidv4();
+            this.password = this.encryptPassword(this.password); 
+            return next();
     } catch (error) {
-      console.log(error);
+            return next(error)
     }
-  },
-  encrytPassword(password) {
-    if (!password) return;
-    try {
-      return createHmac('sha256', '123456').update(password).digest('hex');
-    } catch (error) {
-      console.log(error);
-    }
-  },
-};
-
-userSchema.pre('save', function (next) {
-  try {
-    this.password = this.encrytPassword(this.password);
-    next();
-  } catch (error) {
-    console.log(error);
-  }
 });
-
 export default mongoose.model('User', userSchema);
