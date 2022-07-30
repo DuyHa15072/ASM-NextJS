@@ -10,10 +10,10 @@ import {
 } from '../controllers/categoryProducts';
 const router = express.Router();
 
-router.post('/category', createCategory);
-router.get('/category', listCategory);
-router.get('/category/:id', listCategoryDetail);
-router.delete('/category/:id', deleteCategory);
-router.put('/category/:id', updateCategory);
+router.post('/categorys', createCategory);
+router.get('/categorys', listCategory);
+router.get('/categorys/:id', listCategoryDetail);
+router.delete('/categorys/:id', deleteCategory);
+router.put('/categorys/:id', updateCategory);
 
 export default router;
