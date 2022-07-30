@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {GetStaticProps, GetStaticPropsContext} from 'next'
 import Link from 'next/link'
 import userSWA from 'swr'
@@ -11,6 +11,7 @@ type ProductsProps = {
 const Products = () => {
 
         const { data, error, create } = userProducts();
+   
 
         if(!data) return <div>Load...</div>
         if(error) return <div>Failed to load</div>
@@ -79,7 +80,7 @@ const Products = () => {
                             <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-2 xl:gap-x-8">
                                 {data?.map((item, index) => {
                                     return (
-                                        <a href={`/product/${item.id}`} key={index} className="group">
+                                        <a href={`/product/${item._id}`} key={index} className="group">
                                             <div className="w-full md:h-[300px] aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
                                                 <img src={item.img} alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." className="w-full h-full object-center object-cover group-hover:opacity-75" />
                                             </div>
