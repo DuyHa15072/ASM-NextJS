@@ -2,6 +2,7 @@ import React from 'react'
 import Login from '../components/layout/login'
 import {useForm , SubmitHandler} from 'react-hook-form'
 import {signup} from '../api/auth'
+import { useRouter } from 'next/router'
 
 type FormSignUp = {
   name: string,
@@ -12,10 +13,13 @@ type FormSignUp = {
 }
 
 const Signup = () => {
+    const router = useRouter();
     const {register, handleSubmit, formState} = useForm<FormSignUp>();
     const onSubmit: SubmitHandler<FormSignUp> = data => {
       try {
         signup(data);
+        alert ('Đăng ký thành công')
+        router.push(`/signin`)
       } catch (error) {
         console.log(error);
       }
