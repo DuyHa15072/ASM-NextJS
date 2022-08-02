@@ -29,7 +29,7 @@ export const readProduct = (id: any) => {
     return instance.get(url);
 }
 
-export const namProducts = (keyword : any) => {
-    const url= `/products?name=${keyword}`;
+export const NamePro = (keyword : any) =>{
+    const url=`/products?name=${keyword}`;
     return instance.get(url)
-}
+};

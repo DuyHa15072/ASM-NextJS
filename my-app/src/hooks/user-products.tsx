@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { add, remove, update , readProduct} from "../api/products";
+import { add, remove, update , readProduct, NamePro} from "../api/products";
  import { ProductType } from "../types/products";
 
 const userProducts = () => {
@@ -31,11 +31,17 @@ const userProducts = () => {
             const product  = await readProduct(id);
             mutate([product] );
         };
+
+        const namePro = async (keyword: string) => {
+            const product  = await NamePro(keyword);
+            mutate([product]);
+        };
     
     return {
         create,
         updates,
         deleteProduct,
+        namePro,
         read,
         data,
         error,
