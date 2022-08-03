@@ -13,7 +13,6 @@ import userCategory from '../../../../hooks/user-category'
 
 
 const EditCategory = () => {
-  const dispatch = useDispatch();
   const router = useRouter()
   
   const { register, handleSubmit, formState: {errors}, reset} = useForm<any>();    
@@ -26,8 +25,9 @@ const EditCategory = () => {
 
             const getCategory = async () => {
                 (async () => {
-                    const category = await readCategory(id)
+                    const {category} = await readCategory(id)
                     reset(category)
+
                     console.log(category)
                 })()
     
