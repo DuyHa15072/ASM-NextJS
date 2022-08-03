@@ -2,35 +2,32 @@
 
 import Product from '../models/products';
 
-
 export const listProduct = async (req, res) => {
-  let { name} = req.query                                                                             // khai báo và nhận dự liệu gửi lên
+  let { name } = req.query; // khai báo và nhận dự liệu gửi lên
   if (name) {
-      if (name) {
-          try {
-              const products = await Product.find({ name: new RegExp(name, 'i') }).exec();
-              res.status(200).json(products)
-          } catch (error) {
-              res.status(401).json({
-                  message: "Lỗi , không lấy được sản phẩm"
-              })
-          }
-      }
-  } else {
+    if (name) {
       try {
-          const product = await Product.find().exec(); 
-          res.status(200).json(product)
+        const products = await Product.find({
+          name: new RegExp(name, 'i'),
+        }).exec();
+        res.status(200).json(products);
       } catch (error) {
-          res.status(401).json({
-              message: "Lỗi , không lấy được sản phẩm"
-          })
+        res.status(401).json({
+          message: 'Lỗi , không lấy được sản phẩm',
+        });
       }
+    }
+  } else {
+    try {
+      const product = await Product.find().exec();
+      res.status(200).json(product);
+    } catch (error) {
+      res.status(401).json({
+        message: 'Lỗi , không lấy được sản phẩm',
+      });
+    }
   }
-}
-
-
-
-
+};
 
 // export const listProduct = async (request, response) => {
 //   try {
@@ -57,14 +54,16 @@ export const listProductDetail = async (request, response) => {
     response.status(400).json({ message: 'Không thấy data' });
   }
 };
-export const deleteProduct = async (request, response) => {
+export const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findOneAndDelete({
-      _id: request.params.id,
+      _id: req.params.id,
     }).exec();
-    response.json(product);
+    res.json(product);
   } catch (error) {
-    response.status(400).json({ message: 'Không xóa được data' });
+    res.status(400).json({
+      message: 'Không xóa được data',
+    });
   }
 };
 export const updateProduct = async (request, response) => {
@@ -80,7 +79,8 @@ export const updateProduct = async (request, response) => {
   }
 };
 
-export const readProduct = async (req, res) => { // get a product detail
+export const readProduct = async (req, res) => {
+  // get a product detail
   // get a product
   try {
     const products = await Product.findOne({ _id: req.params.id }).exec();
