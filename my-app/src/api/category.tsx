@@ -22,3 +22,9 @@ export const update = (category: CategoryType) => {
     const url = `categorys/${category._id}`;
     return instance.put(url, category); 
 }
+
+export const readCategory = (id: any) => {
+    const url = `/categorys/${id}`;
+    return instance.get(url);
+}
+

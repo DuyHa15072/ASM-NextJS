@@ -76,11 +76,6 @@ const previewImg = (ig: any) => {
                     <input type="text" {...register('name', { required: true , minLength: 5})} placeholder="...." className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
                     {errors.name && <span className='text-red-500'>Không để trống và nhập lớn hơn 5</span>}
                 </div>
-                {/* <div className="w-full mb-[10px]">
-                    <label htmlFor="Name" className="block mb-3 text-sm font-semibold text-gray-500">img</label>
-                    <input type="text" {...register('img', { required: true , minLength: 5})} placeholder="...." className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
-                    {errors.img && <span className='text-red-500'>Không để trống và nhập lớn hơn 5</span>}
-                </div> */}
         <div className="w-full  mb-[10px]">
                             <label htmlFor="Image" className="block mb-3 text-sm font-semibold text-gray-500">Image</label>
                             <input multiple onChange={(e) => { previewImg(e.target.files) }} type="file" placeholder="...." className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
@@ -92,18 +87,18 @@ const previewImg = (ig: any) => {
                         </div>
                 <div className="w-full  mb-[10px]">
                     <label htmlFor="Price" className="block mb-3 text-sm font-semibold text-gray-500">Price</label>
-                    <input type="number" {...register('price', { required: true })} placeholder="...." className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
-                    {errors.price && <span className='text-red-500'>Không để trống và nhập lớn hơn 5</span>}
+                    <input type="number" {...register('price', { required: true, minLength: 3 })} placeholder="...." className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
+                    {errors.price && <span className='text-red-500'>Không để trống và nhập lớn hơn 3</span>}
                 </div>
                 <div className="w-full  mb-[10px]">
                     <label htmlFor="Quantity" className="block mb-3 text-sm font-semibold text-gray-500">Quantity</label>
                     <input type="number" {...register('quantity', { required: true })} placeholder="...." className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
-                    {errors.quantity && <span className='text-red-500'>Không để trống và nhập lớn hơn 5</span>}
+                    {errors.quantity && <span className='text-red-500'>Không để trống</span>}
 
                 </div>
                 <div className="w-full  mb-[10px]">
                     <label htmlFor="Description" className="block mb-3 text-sm font-semibold text-gray-500">Description</label>
-                    <textarea rows={20} {...register('desc', { required: true })} placeholder="...." className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
+                    <textarea rows={20} {...register('desc', { required: true, minLength: 5 })} placeholder="...." className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
                     {errors.desc && <span className='text-red-500'>Không để trống và nhập lớn hơn 5</span>}
 
                 </div>

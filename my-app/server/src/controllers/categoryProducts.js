@@ -31,16 +31,33 @@ export const listCategoryDetail = async (request, response) => {
     response.status(400).json({ message: 'Không thấy data' });
   }
 };
-export const deleteCategory = async (request, response) => {
+export const deleteCategorys = async (request, response) => {
   try {
     const category = await Category.findOneAndDelete({
       _id: req.params.id,
     }).exec();
     response.json(category);
   } catch (error) {
-    response.json({ message: 'Khong thay data' });
+    response.json({ message: 'data không thành công' });
   }
 };
+
+
+export const deleteCategory = async (req, res) => { // delete 
+  // delete 
+  try {
+    const categorys = await Category.findOneAndDelete({
+      _id: req.params.id,
+    }).exec();
+    res.json(categorys);
+  } catch (error) {
+    res.status(400).json({
+      message : 'Product deletion failed' ,
+    } ) ;
+  }
+} ;
+
+
 export const updateCategory = async (request, response) => {
   try {
     const category = await Category.findOneAndUpdate(
