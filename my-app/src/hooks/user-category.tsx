@@ -15,15 +15,17 @@ const userCategory = () => {
 
     //delete
     const deleteCate = async (id: any) => {
-        const product  = await remove(id);
-        mutate(item => item.id !== data.id);
+        const category  = await remove(id);
+        mutate(item => item.id !== category.id);
     };
 
         //edit
         const updateCate = async (item: CategoryType) => {
-            const product  = await update(item);
-            mutate([item => item.id === data.id ? data : item] );
+            const category  = await update(item);
+            mutate([(item: any)  => item.id === category.id ? category : item] );
         };
+        
+
     
 
     return {
