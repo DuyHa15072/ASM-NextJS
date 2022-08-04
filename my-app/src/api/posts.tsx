@@ -4,12 +4,12 @@ import instance from "./instance";
 
 
 export const list = ()=> {
-    const url = "/posts";
+    const url = `/posts`;
     return instance.get(url)
 }
 
 export const add = (post : PostsType) =>{
-    const url = "/posts";
+    const url = `/posts`;
     return instance.post(url,post)
 };
 export const remove = (id: any) => {
