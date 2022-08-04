@@ -44,6 +44,7 @@ export const deleteCategory = async (req, res) => {
     });
   }
 };
+
 export const updateCategory = async (request, response) => {
   try {
     const category = await Category.findOneAndUpdate(
