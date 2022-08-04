@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import LayoutAdmin from '../../../components/layout/admin'
 import userProducts from '../../../hooks/user-products';
+import fetch from 'isomorphic-unfetch'
 
 const listProducts = () => {
     const { data, error, create, deleteProduct } = userProducts();
@@ -78,6 +79,25 @@ const listProducts = () => {
         </div>
 
     )
+}
+export async function getServerSideProps({ query: {page= 1} }) {
+    const { API_URL } = process.env
+
+    const start = +page ===1 ? 0 :( page - 1)*3
+
+    const numberResponse = await fetch(`${API_URL}/movies/count`)
+    const numberProduct = await numberResponse.json()
+
+    const res = await fetch(`${API_URL}/movies?_limit=5&_start=${start}`)
+    const data = await res.json()
+
+    return {
+        props: {
+            movies: data,
+            page: +page,
+            numberResponse
+        }
+    }
 }
 listProducts.Layout = LayoutAdmin;
 export default listProducts
