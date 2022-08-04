@@ -12,6 +12,7 @@ import postRoute from './routes/post';
 import categoryProductsRoute from './routes/categoryProducts';
 import categoryPostRoute from './routes/categoryPots';
 import authRoute from './routes/auth';
+import orderRoute from './routes/order';
 
 const app = express();
 dotenv.config();
@@ -34,6 +35,7 @@ app.use('/api', postRoute);
 app.use('/api', categoryProductsRoute);
 app.use('/api', categoryPostRoute);
 app.use('/api', authRoute);
+app.use('/api/orders', orderRoute);
 
 // connection
 const PORT = 5000;
