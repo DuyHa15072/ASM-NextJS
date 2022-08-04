@@ -12,6 +12,7 @@ import postRoute from './routes/post';
 import categoryProductsRoute from './routes/categoryProducts';
 import categoryPostRoute from './routes/categoryPots';
 import authRoute from './routes/auth';
+import orderRoute from './routes/order';
 
 const app = express();
 dotenv.config();
@@ -23,18 +24,21 @@ app.use(express.json());
 
 // connnect database
 mongoose
-  .connect('mongodb://127.0.0.1:27017/asmnexjs')
+  .connect(
+    'mongodb+srv://Phanvuongtb:QnSURs6503zmH1wd@cluster0.t8xiti9.mongodb.net/Shop_giay?retryWrites=true&w=majority'
+  )
   .then(() => console.log('Connect db thanh cong'));
-  
+
 // Router
 app.use('/api', productRoute);
 app.use('/api', postRoute);
 app.use('/api', categoryProductsRoute);
 app.use('/api', categoryPostRoute);
 app.use('/api', authRoute);
+app.use('/api/orders', orderRoute);
 
 // connection
-const PORT = 8000;
+const PORT = 5000;
 app.listen(PORT, () => {
   console.log('Server is running port', PORT);
 });

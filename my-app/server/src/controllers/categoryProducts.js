@@ -31,20 +31,8 @@ export const listCategoryDetail = async (request, response) => {
     response.status(400).json({ message: 'Không thấy data' });
   }
 };
-export const deleteCategorys = async (request, response) => {
-  try {
-    const category = await Category.findOneAndDelete({
-      _id: req.params.id,
-    }).exec();
-    response.json(category);
-  } catch (error) {
-    response.json({ message: 'data không thành công' });
-  }
-};
-
-
-export const deleteCategory = async (req, res) => { // delete 
-  // delete 
+export const deleteCategory = async (req, res) => {
+  // delete
   try {
     const categorys = await Category.findOneAndDelete({
       _id: req.params.id,
@@ -52,11 +40,10 @@ export const deleteCategory = async (req, res) => { // delete
     res.json(categorys);
   } catch (error) {
     res.status(400).json({
-      message : 'Product deletion failed' ,
-    } ) ;
+      message: 'Product deletion failed',
+    });
   }
-} ;
-
+};
 
 export const updateCategory = async (request, response) => {
   try {

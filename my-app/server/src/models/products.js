@@ -2,37 +2,31 @@
 import categoryProducts from './categoryProducts';
 import mongoose, { ObjectId } from 'mongoose';
 
-const productSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const productSchema = new mongoose.Schema(
+  {
+    id: {
+      type: String,
+    },
+    name: {
+      type: String,
+      required: true,
+      minLength: 5,
+      maxLength: 32,
+    },
+    img: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
   },
-  img: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true
-  },
-  quantity: {
-    type: Number,
-    required: true
-  },
-  desc: {
-    type: String,
-    required: true,
-  },
-  slug: {
-    type: String,
-    lowercase: true,
-    unique: true,
-    index: true
-  },
-  category: {
-      type: ObjectId,
-      ref: categoryProducts
-  }
-}, { timestamps: true })
+  { timestamps: true }
+);
 
 export default mongoose.model('Product', productSchema);
