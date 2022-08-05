@@ -11,7 +11,6 @@ export const createCategory = async (request, response) => {
     response.status(400).json({ message: 'Không thể thêm mới' });
   }
 };
-
 export const listCategory = async (request, response) => {
   try {
     const category = await Category.find().exec();
