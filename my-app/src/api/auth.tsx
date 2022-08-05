@@ -17,3 +17,7 @@ export const update = (user: SignupType) => {
     const url = `users/${user._id}`;
     return instance.put(url, user); 
 }
+export const readUser = (id: any) => {
+    const url = `/users/${id}`;
+    return instance.get(url);
+}
