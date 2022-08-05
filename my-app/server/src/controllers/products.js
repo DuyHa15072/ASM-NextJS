@@ -39,7 +39,6 @@ export const listProduct = async (req, res) => {
 // };
 
 export const creatProduct = async (req, res) => { 
-  console.log(req.body);
   try {
     const product = await new Product(req.body).save()
     res.json(product);
