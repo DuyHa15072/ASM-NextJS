@@ -9,15 +9,31 @@ import userProducts from '../../../hooks/user-products';
 import { ProductType } from '../../../types/products';
 import userCategory from '../../../hooks/user-category';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { creactProducts } from '../../../features/products/product.slice';
+import { CategoryType } from '../../../types/category';
+import { listCate } from '../../../api/category';
 
 const Add = () => {
+    const dispatch = useDispatch();
     const {register,handleSubmit, formState: {errors} } = useForm<any>();
     const [files, setFiles] = useState<any>([]);
 
     const router = useRouter()
-  const { error, create } = userProducts();
-  const { data } = userCategory();
+//   const { error, create } = userProducts();
+//   const { data } = userCategory();
+
+  const [categorys, setCategorys] = useState<CategoryType[]>([])
     // console.log(data);
+
+    useEffect(() => {
+        const getCategorys = async () => {
+            const  data  = await listCate();
+            setCategorys(data)
+            console.log(data);
+        }
+        getCategorys();
+      } ,  [ ] ) ;
 
     const CLOUDINARY_PRESET = "k9yoyn7r";
     const CLOUDINARY_API_URL = "https://api.cloudinary.com/v1_1/dev7lem1d/image/upload";
@@ -37,7 +53,7 @@ const Add = () => {
             });
             imgLink.push(image.data.url)
         }
-        create(({ ...data, img: imgLink[0] }))
+        dispatch(creactProducts(({ ...data, img: imgLink[0] })))
         alert("Thêm thành công")
         console.log(data);
         router.push(`/admin/products`)
@@ -66,7 +82,7 @@ const previewImg = (ig: any) => {
                             <label htmlFor="Category">Category</label>
                             <select {...register('category', { required: true })} >
                                 <option className="py-1">Categorys</option>
-                                {data && data.map((item: any, index: any) => {
+                                {categorys && categorys.map((item: any, index: any) => {
                                     return <option key={index} className="py-1" value={item._id}>{item.name}</option>
                                 })}
                             </select>

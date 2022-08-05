@@ -38,14 +38,30 @@ export const listProduct = async (req, res) => {
 //   }
 // };
 
-export const post = async (req, res) => {
+export const creatProduct = async (req, res) => { 
+  console.log(req.body);
   try {
-    const products = await Product(req.body).save();
-    res.json(products);
+    const product = await new Product(req.body).save()
+    res.json(product);
+    console.log(product);
   } catch (error) {
-    res.json({ message: 'Khong thay data' });
+    res.status(400).json({
+      message : "Adding product failed"
+    } )
   }
-};
+} 
+
+// export const createCategory = async (request, response) => {
+//   try {
+//     const category = await Category(request.body).save();
+//     response.json(category);
+//   } catch (error) {
+//     response.status(400).json({ message: 'Không thể thêm mới' });
+//   }
+// };
+
+
+
 export const listProductDetail = async (request, response) => {
   try {
     const product = await Product.findOne({ _id: request.params.id }).exec();

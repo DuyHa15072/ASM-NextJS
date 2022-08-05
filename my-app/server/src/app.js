@@ -24,10 +24,14 @@ app.use(express.json());
 
 // connnect database
 mongoose
-  .connect(
-    'mongodb+srv://Phanvuongtb:QnSURs6503zmH1wd@cluster0.t8xiti9.mongodb.net/Shop_giay?retryWrites=true&w=majority'
-  )
+  .connect('mongodb://127.0.0.1:27017/asmnexjs')
   .then(() => console.log('Connect db thanh cong'));
+  
+// mongoose
+//   .connect(
+//     'mongodb+srv://Phanvuongtb:QnSURs6503zmH1wd@cluster0.t8xiti9.mongodb.net/Shop_giay?retryWrites=true&w=majority'
+//   )
+//   .then(() => console.log('Connect db thanh cong'));
 
 // Router
 app.use('/api', productRoute);
