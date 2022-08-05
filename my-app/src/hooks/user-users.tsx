@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { add, remove, update } from "../api/category";
+import {remove, update } from "../api/auth";
  import { SignupType } from "../types/signUp";
 
 const Users = () => {
@@ -15,8 +15,8 @@ const Users = () => {
 
         //edit
         const updateUser = async (item: SignupType) => {
-            const category  = await update(item);
-            mutate([(item: any)  => item.id === user.id ? category : item] );
+            const user  = await update(item);
+            mutate([(item: any)  => item.id === user.id ? user : item] );
         };
         
 
