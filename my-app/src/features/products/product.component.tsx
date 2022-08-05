@@ -101,13 +101,15 @@ const Product = (props: Props) => {
 
                   return (
                     <div key={index}>
-                      <a href={`/products/${item._id}`}>
+                      <Link href={`/products/${item._id}`}>
+                      <a href="">
                         <div className="w-full md:h-[300px] aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8">
                           <img src={item.img} alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." className="w-full h-full object-center object-cover group-hover:opacity-75" />
                         </div>
                         <h3 className="mt-4 text-sm text-gray-700">{item.name}</h3>
                         <p className="mt-1 text-lg font-medium text-gray-900">$ {item.price}</p>
                       </a>
+                      </Link>
                     </div>
                     // <a href={`/products/${item._id}`} key={index} className="group">
 

@@ -14,6 +14,7 @@ const router = express.Router();
 router.get('/products', listProduct);
 router.get('/products/:id', listProductDetail);
 router.get('/products/:id', readProduct);
+router.get("/products/ct=:cate", listProduct);
 router.post('/products',creatProduct);
 router.delete('/products/:id', deleteProduct);
 router.put('/products/:id', updateProduct);

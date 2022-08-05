@@ -3,7 +3,7 @@
 import Product from '../models/products';
 
 export const listProduct = async (req, res) => {
-  let { name } = req.query; // khai báo và nhận dự liệu gửi lên
+  let { name, ct } = req.query; // khai báo và nhận dự liệu gửi lên
   if (name) {
     if (name) {
       try {
@@ -17,6 +17,17 @@ export const listProduct = async (req, res) => {
         });
       }
     }
+  } 
+  if(ct){
+      try {
+          const product = await Product.find({category : ct}).exec();
+          res.status(200).json(product)
+          console.log(product)
+      } catch (error) {
+          res.status(401).json({
+              message : "Error, failed!"
+          } )
+      }
   } else {
     try {
       const product = await Product.find().exec();
@@ -97,12 +108,14 @@ export const readProduct = async (req, res) => {
   // get a product detail
   // get a product
   try {
-    const products = await Product.findOne({ _id: req.params.id }).exec();
+    const product = await Product.findOne({ _id: req.params.id }).exec();
     console.log(req.params.id); //params trả về 1 objec
-    res.json(products);
+    res.json(product);
   } catch (error) {
     res.status(400).json({
       message: 'Thêm sản phẩm không thành công',
     });
   }
 };
+
+
