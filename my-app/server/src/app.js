@@ -42,7 +42,7 @@ app.use('/api', authRoute);
 app.use('/api/orders', orderRoute);
 
 // connection
-const PORT = 5000;
+const PORT = 8000;
 app.listen(PORT, () => {
   console.log('Server is running port', PORT);
 });

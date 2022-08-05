@@ -1,10 +1,37 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { listCate } from '../../../api/category';
+import { list } from '../../../api/products';
+import { useAppDispatch, useAppSelector } from '../../../app/hook';
 import LayoutAdmin from '../../../components/layout/admin'
+import { filterProduct, getProducts } from '../../../features/products/product.slice';
 import userProducts from '../../../hooks/user-products';
+import { CategoryType } from '../../../types/category';
 
 const listProducts = () => {
-    const { data, error, create, deleteProduct } = userProducts();
+    const dispatch = useAppDispatch();
+    // const { data, error, create, deleteProduct } = userProducts();
+
+    const [categorys, setCategorys] = useState<CategoryType[]>([])
+    const products = useAppSelector(state => state.product.value);
+
+
+    useEffect(() => {
+        const getCategorys = async () => {
+            const  data  = await listCate();
+            setCategorys(data)
+            console.log(data);
+        }
+        getCategorys();
+        dispatch(getProducts())
+      } ,  [ ] ) ;
+
+
+      const fiterProduct = (id: string) => {
+        if (id == "All") dispatch(getProducts())
+        dispatch(filterProduct(id))
+    }
 
     const removeItem = async (id: any) => {
       const confirm = window.confirm('bạn có muốn xóa không ?');
@@ -12,9 +39,6 @@ const listProducts = () => {
         await (deleteProduct(id));
       }
    }
-
-    if (!data) return <div>Load...</div>
-    if (error) return <div>Failed to load</div>
 
     return (
         <div>
@@ -25,6 +49,14 @@ const listProducts = () => {
                         <button className="bnt btn-remove inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Products</button>
                     </Link>
                 </div>
+                <form className='mb-4 flex'>
+                <select onChange={(e) => fiterProduct(e.target.value)} className="w-[300px] mr-[20px] border bg-white rounded px-3 py-2 outline-none">
+                    <option className="py-1" value="All" defaultChecked>All</option>
+                    {categorys && categorys.map((item, index) => {
+                        return <option key={index} className="py-1" value={item._id}>{item.name}</option>
+                    } ) }
+                </select>
+            </form>
                 <div className="w-full overflow-x-auhref">
                     <table className="w-full whitespace-no-wrap">
                         <thead>
@@ -39,7 +71,7 @@ const listProducts = () => {
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                            {data?.map((item: any, index: any) => {
+                            {products?.map((item: any, index: any) => {
                                 return (
                                     <tr key={index} className="text-gray-700 dark:text-gray-400">
                                         <td className="px-4 py-3 text-sm">
