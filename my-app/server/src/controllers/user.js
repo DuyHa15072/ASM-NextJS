@@ -46,3 +46,11 @@ export const updateUser = async (request, response) => {
     response.status(400).json({ message: 'Không sửa được data' });
   }
 };
+export const listUserDetail = async (request, response) => {
+  try {
+    const user = await User.findOne({ _id: request.params.id }).exec();
+    response.json({ user});
+  } catch (error) {
+    response.status(400).json({ message: 'Không thấy data' });
+  }
+};
