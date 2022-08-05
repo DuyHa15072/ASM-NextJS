@@ -2,16 +2,16 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { listCate } from '../../../api/category';
-import { list } from '../../../api/products';
+import { list, remove } from '../../../api/products';
 import { useAppDispatch, useAppSelector } from '../../../app/hook';
 import LayoutAdmin from '../../../components/layout/admin'
-import { filterProduct, getProducts } from '../../../features/products/product.slice';
+import { filterProduct, getProducts,deleteProduct } from '../../../features/products/product.slice';
 import userProducts from '../../../hooks/user-products';
 import { CategoryType } from '../../../types/category';
 
 const listProducts = () => {
     const dispatch = useAppDispatch();
-    // const { data, error, create, deleteProduct } = userProducts();
+    // const {  deleteProduct } = userProducts();
 
     const [categorys, setCategorys] = useState<CategoryType[]>([])
     const products = useAppSelector(state => state.product.value);
@@ -36,7 +36,7 @@ const listProducts = () => {
     const removeItem = async (id: any) => {
       const confirm = window.confirm('bạn có muốn xóa không ?');
       if(confirm){
-        await (deleteProduct(id));
+        await dispatch(deleteProduct(id));
       }
    }
 
