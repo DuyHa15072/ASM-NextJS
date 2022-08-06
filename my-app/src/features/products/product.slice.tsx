@@ -1,18 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { list,NamePro,add, productCate } from "../../api/products";
+import { list, NamePro, add, productCate, remove } from "../../api/products";
 import { ProductType } from "../../types/products";
 
 interface IProductState {
-    value: any[];
+  value: any[];
 }
 const initialState: IProductState = {
-    value: [],
+  value: [],
 };
 
 // Action
 export const getProducts = createAsyncThunk("product/getProduct", async () => {
-    const data = await list();
-    return data;
+  const data = await list();
+  return data;
 });
 export const nameProducts = createAsyncThunk("product/nameProducts", async (params: ProductType) => {
   const data = await NamePro(params);
@@ -25,29 +25,40 @@ export const creactProducts = createAsyncThunk("product/creactProducts", async (
 
 export const filterProduct = createAsyncThunk(
   "product/filterProducts", async (category: string) => {
-      const  data  = await productCate(category)
-      return  data;
-  } ) ;
+    const data = await productCate(category)
+    return data;
+  });
 
+  export const deleteProduct =createAsyncThunk(
+    'product/deleteProduct', async (params: any ) => {
+      const data = await remove(params);
+      return data;
+    }
+  ); 
+  
 const productSlice = createSlice({
-    name: "product",
-    initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder.addCase(getProducts.fulfilled, (state, action) => {
-            state.value = action.payload;
-        });
-        builder.addCase(nameProducts.fulfilled, (state, action) => {
-        state.value = action.payload;
-        });
-        builder.addCase(creactProducts.fulfilled, (state, action) => {
-        state.value.push(action.payload);
-        });
-        builder.addCase(filterProduct.fulfilled, (state, action) => {
-          state.value = action.payload;
-          console.log(state.value)
-          });
-    },
+  name: "product",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(getProducts.fulfilled, (state, action) => {
+      state.value = action.payload;
+    });
+    builder.addCase(nameProducts.fulfilled, (state, action) => {
+      state.value = action.payload;
+    });
+    builder.addCase(creactProducts.fulfilled, (state, action) => {
+      state.value.push(action.payload);
+    });
+    builder.addCase(filterProduct.fulfilled, (state, action) => {
+      state.value = action.payload;
+      console.log(state.value)
+    });
+    builder.addCase(deleteProduct.fulfilled, (state, action) => {
+      state.value = state.value.filter(item => item._id !== action.payload._id)
+      console.log(state.value)
+    });
+  },
 });
 
 export default productSlice.reducer;

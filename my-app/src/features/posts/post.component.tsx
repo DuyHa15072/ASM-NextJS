@@ -26,23 +26,23 @@ const Post = (props: Props) => {
                         <h2 className="text-2xl mt-4 text-gray-500 font-bold text-center">News</h2>
                         <div className="flex grid h-full grid-cols-12 gap-10 pb-10 mt-8 sm:mt-16">
                             <div className="grid grid-cols-12 col-span-12 gap-7">
-                            {posts?.map((item: any, index: any)=>{
+                                {posts?.map((item: any, index: any) => {
 
-                            return(
-                               
-                                    <div key={index} className="flex flex-col items-start col-span-12 overflow-hidden shadow-sm rounded-xl md:col-span-6 lg:col-span-4">
-                                        <a href={`/posts/${item._id}`} className="block transition duration-200 ease-out transform hover:scale-110">
-                                            {/* <img className="object-cover w-full shadow-sm h-full" src={item.photo} /> */}
-                                            <img className="object-cover w-full shadow-sm h-full" src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1951&amp;q=80" />
-                                        </a>
-                                        <div className="relative flex flex-col items-start px-6 bg-white border border-t-0 border-gray-200 py-7 rounded-b-2xl">
+                                    return (
 
-                                            <h2 className="text-base text-gray-500 font-bold sm:text-lg md:text-xl"><a href="#_">{item.title}</a></h2>
-                                            <p className="mt-2 text-sm text-gray-500">{item.desc}</p>
+                                        <div key={index} className="flex flex-col items-start col-span-12 overflow-hidden shadow-sm rounded-xl md:col-span-6 lg:col-span-4">
+                                            <a href={`/news/${item._id}`} className="block transition duration-200 ease-out transform hover:scale-110">
+                                                <img className="object-cover w-full shadow-sm h-full" src={item.photo} />
+                                                {/* <img className="object-cover w-full shadow-sm h-full" src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1951&amp;q=80" /> */}
+                                            </a>
+                                            <div className="relative flex flex-col items-start px-6 bg-white border border-t-0 border-gray-200 py-7 rounded-b-2xl">
+
+                                                <h2 className="text-base text-gray-500 font-bold sm:text-lg md:text-xl"><a href="#_">{item.title}</a></h2>
+                                                <p className="mt-2 text-sm text-gray-500">{item.desc}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                
-                                )
+
+                                    )
                                 })}
 
 

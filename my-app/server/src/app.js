@@ -13,6 +13,7 @@ import categoryProductsRoute from './routes/categoryProducts';
 import categoryPostRoute from './routes/categoryPots';
 import authRoute from './routes/auth';
 import orderRoute from './routes/order';
+import blogRouter from './routes/blog'
 
 const app = express();
 dotenv.config();
@@ -36,10 +37,12 @@ mongoose
 // Router
 app.use('/api', productRoute);
 app.use('/api', postRoute);
+app.use('/api', blogRouter);
 app.use('/api', categoryProductsRoute);
 app.use('/api', categoryPostRoute);
 app.use('/api', authRoute);
 app.use('/api/orders', orderRoute);
+
 
 // connection
 const PORT = 8000;
