@@ -31,7 +31,7 @@ const SliderAdmin = (props: Props) => {
                         <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
                         </path>
                     </svg>
-                    <span className="ml-4">Categorye</span>
+                    <span className="ml-4">Categories</span>
                     
                 </a>
                 </Link>
@@ -48,13 +48,13 @@ const SliderAdmin = (props: Props) => {
                 </Link>
             </li>
             <li className="relative px-6 py-3">
-            <Link href={`/admin/oders`} >
+            <Link href={`/admin/blog`} >
                 <a className="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="/admin/order">
                     <svg className="w-5 h-5" aria-hidden="true" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
                         <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
                     </svg>
-                    <span className="ml-4">Order</span>
+                    <span className="ml-4">Blog</span>
                 </a>
             </Link>
             </li>
