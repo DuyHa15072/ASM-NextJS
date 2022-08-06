@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import { ProductType } from "../../types/products";
 import { addToCart } from '../../features/Cart/CartSlice';
 import { useAppDispatch } from './../../app/hook';
+import { Link } from 'next/link';
 type Props = {}
 
 const productsDetail = (props: Props) => {
@@ -105,9 +106,10 @@ const productsDetail = (props: Props) => {
                 </div>
               </div>
               <div className="flex">
-                <span className="title-font font-medium text-2xl text-gray-900">${data?.price}.00</span>
-                <button onClick={() => addToCartHandler(data)} className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">ADD</button>
-
+                <Link href="/cart">
+                  <span className="title-font font-medium text-2xl text-gray-900">${data?.price}.00</span>
+                  <button onClick={() => addToCartHandler(data)} className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">ADD</button>
+                </Link>
               </div>
             </div>
           </div>

@@ -57,7 +57,7 @@ const Cart: React.FC = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     <button onClick={() => addToCartHandler(product)} className="btn btn-increase">+</button>
-
+                    {product.amount}
                     <button onClick={() => handleRemoveFromCart(product.id)} className="btn btn-decrease">-</button>
                   </td>
 
