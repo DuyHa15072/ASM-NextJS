@@ -3,6 +3,7 @@ import Login from '../components/layout/login'
 import {useForm , SubmitHandler} from 'react-hook-form'
 import {signup} from '../api/auth'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 type FormSignUp = {
   name: string,
@@ -65,7 +66,7 @@ const Signup = () => {
         </div>
       </form>
             <div className="text-center pt-12 pb-12">
-                <p>Already have an account? <a className="underline font-semibold text-[#1E90FF]">Log in here.</a></p>
+                <p>Already have an account? <Link href="/signin"><a className="underline font-semibold text-[#1E90FF]">Đăng Nhập</a></Link></p>
             </div>
         </div>
     </div>
