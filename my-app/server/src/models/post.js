@@ -2,28 +2,23 @@
 
 import mongoose, { ObjectId } from 'mongoose';
 
-const PostSchema = new mongoose.Schema(
-  {
-    title: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    desc: {
-      type: String,
-      required: true,
-    },
-    photo: {
-      type: String,
-      required: false,
-    },
-    username: {
-      type: String,
-      required: true,
-    },
-    category: { type: ObjectId, ref: 'categoryPost' },
-  },
-  { timestamps: true }
-);
+const postSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  } ,
+  img: {
+    type: String,
+    required: true,
+  } ,
+  // content: {
+  //   type: String,
+  //   required: true,
+  // } ,
+  desc: {
+    type: String,
+    required: true,
+  }
+}, { timestamps: true })
 
-module.exports = mongoose.model('Post', PostSchema);
+export default mongoose.model('Post', postSchema);

@@ -1,6 +1,6 @@
 export type PostsType={
     _id? : number;
     title: string;
-    photo: string;
+    img: string;
     desc: string;
 }

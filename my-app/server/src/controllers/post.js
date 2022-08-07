@@ -1,42 +1,48 @@
 /** @format */
 
+
 import Post from '../models/post';
 
-export const listProduct = async (request, response) => {
+export const createPost = async (request, response) => {
   try {
-    const post = await Post.find().exec();
-    response.json(post);
+    const blog = await Post(request.body).save();
+    response.json(blog);
+  } catch (error) {
+    response.status(400).json({ message: 'Không thể thêm mới' });
+  }
+};
+
+export const listPost = async (request, response) => {
+  try {
+    const blog = await Post.find().exec();
+    response.json(blog);
   } catch (error) {
     response.status(400).json({ message: 'Không thấy data' });
   }
 };
-export const listProductDetail = async (request, response) => {
+export const listPostDetail = async (request, response) => {
   try {
     const post = await Post.findOne({ _id: request.params.id }).exec();
-    response.json(post);
+    response.json({  post });
   } catch (error) {
     response.status(400).json({ message: 'Không thấy data' });
   }
 };
-export const createProduct = async (request, response) => {
-  try {
-    const post = await Post(request.body).save();
-    response.json(post);
-  } catch (error) {
-    response.status(400).json({ message: 'Không thêm được data' });
-  }
-};
-export const deleteProduct = async (request, response) => {
+export const deletePost = async (req, res) => {
+  // delete
   try {
     const post = await Post.findOneAndDelete({
-      _id: request.params.id,
+      _id: req.params.id,
     }).exec();
-    response.json(post);
+    res.json(post);
   } catch (error) {
-    response.status(400).json({ message: 'Không xóa được data' });
+    res.status(400).json({
+      message: 'Blog deletion failed',
+    });
   }
 };
-export const updateProduct = async (request, response) => {
+
+export const updatePost = async (request, response) => {
   try {
     const post = await Post.findOneAndUpdate(
       { _id: request.params.id },

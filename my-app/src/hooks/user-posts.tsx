@@ -1,48 +1,37 @@
+import axios from "axios";
 import useSWR from "swr";
-import { add, readPost, remove, update } from "../api/posts";
+import { create,  remove, update } from "../api/posts";
+// import { BlogType } from "../types/blog";
 import { PostsType } from "../types/posts";
 
+const useBlogs = () => {
+    const fetcher = (args) => axios.get(args).then(res => res.data)
 
-const userProducts = () => {
-    // swr api
+    const { data, error, mutate } = useSWR("http://localhost:4000/api/products", fetcher);
 
-    const { data, error, mutate } = useSWR("/posts");
-
-    //create
-    const create = async (item: PostsType) => {
-        const post = await add(item);
-        mutate([...data, post]);
+    // create
+    const add = async (item: PostsType) => {
+        const post = await create(item);
+        mutate ([...data, post]);
+    };
+    const dele = async (id) => {
+        await remove(id);
+        mutate (data.filter(item => item._id !== id));    
     };
 
-    //delete
-    const deletePost = async (id: any) => {
-        const post = await remove(id);
-        mutate((item: any) => item.id !== data.id);
+    const edit = async (item: PostsType) => {
+        const {data : post} = await update(item);
+        return data;
     };
-
-    //edit
-    const updates = async (item: PostsType) => {
-        const post = await update(item);
-        mutate([(item: any) => item.id === post.id ? post : item]);
-    };
-
-
-    //edit
-    const read = async (id: any) => {
-        const post = await readPost(id);
-        mutate([post]);
-    };
-
 
 
     return {
-        create,
-        updates,
-        deletePost,
-        read,
+        edit,
+        add,
+        dele,
         data,
         error,
     };
 };
 
-export default userProducts;
+export default useBlogs;

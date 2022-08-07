@@ -14,11 +14,11 @@ const InfoPost = (props: Props) => {
     if (error) return <div>Error</div>
     return (
         <div>
-            <h2 className="text-2xl text-gray-900 font-bold md:text-4xl">{data?.title}</h2>
-            <img src={data?.photo} alt="" />
-            <p className="mt-6 text-gray-600">{data?.desc}</p>
-            
-
+            <h3 className="text-2xl text-gray-900 font-bold md:text-4xl mb-10">{data?.post.title}</h3>
+            <div className="md:5/12 lg:w-5/12"> 
+              <img src={data?.post.img} alt="image" loading="lazy" width="" height="" />
+            </div>
+            <p className="mt-6 text-gray-600">{data?.post.desc}</p>
         </div>
     )
 }
