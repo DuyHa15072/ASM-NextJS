@@ -4,6 +4,7 @@ import useSWR from 'swr';
 import { ProductType } from "../../types/products";
 import { addItem } from '../../features/Cart/CartSlice';
 import { useAppDispatch } from './../../app/hook';
+
 type Props = {}
 
 const productsDetail = (props: Props) => {

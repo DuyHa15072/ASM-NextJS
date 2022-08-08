@@ -3,23 +3,22 @@
 import Product from '../models/products';
 
 export const listProduct = async (req, res) => {
-  let { name, ct } = req.query; // khai báo và nhận dự liệu gửi lên
-  if (name) {
-    if (name) {
-      try {
-        const products = await Product.find({
-          name: new RegExp(name, 'i'),
-        }).exec();
-        res.status(200).json(products);
-      } catch (error) {
-        res.status(401).json({
-          message: 'Lỗi , không lấy được sản phẩm',
-        });
+  let { name, ct } = req.query
+  if (name || ct) {
+      if (name) {
+        try {
+          const products = await Product.find({
+            name: new RegExp(name, 'i'),
+          }).exec();
+          res.status(200).json(products);
+        } catch (error) {
+          res.status(401).json({
+            message: 'Lỗi , không lấy được sản phẩm',
+          });
+        }
       }
-    }
-  } 
-  if(ct){
-      try {
+      if (ct) {
+        try {
           const product = await Product.find({category : ct}).exec();
           res.status(200).json(product)
           console.log(product)
@@ -27,6 +26,7 @@ export const listProduct = async (req, res) => {
           res.status(401).json({
               message : "Error, failed!"
           } )
+      }
       }
   } else {
     try {
@@ -38,16 +38,7 @@ export const listProduct = async (req, res) => {
       });
     }
   }
-};
-
-// export const listProduct = async (request, response) => {
-//   try {
-//     const product = await Product.find().exec();
-//     response.json(product);
-//   } catch (error) {
-//     response.status(400).json({ message: 'Không thấy data' });
-//   }
-// };
+}
 
 export const creatProduct = async (req, res) => { 
   try {
@@ -60,16 +51,6 @@ export const creatProduct = async (req, res) => {
     } )
   }
 } 
-
-// export const createCategory = async (request, response) => {
-//   try {
-//     const category = await Category(request.body).save();
-//     response.json(category);
-//   } catch (error) {
-//     response.status(400).json({ message: 'Không thể thêm mới' });
-//   }
-// };
-
 
 
 export const listProductDetail = async (request, response) => {

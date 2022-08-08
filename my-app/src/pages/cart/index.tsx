@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import {useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../app/hook'
 import { getTotalItems, removeItem } from '../../features/Cart/CartSlice'
 import { ProductType } from '../../types/products'
@@ -8,16 +7,13 @@ const Cart = () => {
   const dispatch = useAppDispatch();
   const itemsCart = useAppSelector(state => state.cart.items);
 
-
   useEffect(() => {
     dispatch(getTotalItems());
   }, [itemsCart])
-
   const remove = (_id: any) => {
     confirm("bạn có muốn xóa không? ");
     dispatch(removeItem(_id))
   };
-
   return (
     <div>  <div className="flex flex-col m-10">
       <h4>Cart</h4>
@@ -52,7 +48,7 @@ const Cart = () => {
                   return (
                     <tr key={index} className="text-gray-700 dark:text-gray-400">
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{index + 1}</div>
+                        <div className="text-sm text-gray-400">{index + 1}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
@@ -60,14 +56,14 @@ const Cart = () => {
                             <img className="h-10 w-10 rounded-full" src={item.img} alt="" />
                           </div>
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">
+                            <div className="text-sm font-medium text-gray-400">
                               ${item.name}
                             </div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{item.price}USA</div>
+                        <div className="text-sm text-gray-400">{item.price}USA</div>
 
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -76,9 +72,9 @@ const Cart = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <button data-id="${item.id}" className="btn btn-increase">+</button>
+                        <button data-id="${item.id}" className="btn btn-increase"></button>
                         {item.quantity}
-                        <button data-id="${item.id}" className="btn btn-decrease">-</button>
+                        <button data-id="${item.id}" className="btn btn-decrease"></button>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {item.quantity * item.price}USA
@@ -99,7 +95,7 @@ const Cart = () => {
         </div>
       </div>
     </div>
-      <Link href={""}  className='no-underline'>
+      <Link href={``} className='no-underline'>
         <button type="submit" className="mt-10  bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 no-underline ">Buy now</button>
       </Link>
     </div>
