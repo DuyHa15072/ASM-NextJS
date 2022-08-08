@@ -5,11 +5,13 @@ import Layout from '../components/layout/website'
 import { SWRConfig } from 'swr';
 import instance from '../api/instance';
 import { Provider } from 'react-redux';
-import { store } from '../app/store';
+import store, { persistor }  from '../app/store';
+import { PersistGate } from 'redux-persist/integration/react';
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const LayoutWrapper = Component.Layout ?? Layout;
   return (
     <Provider store={store}>
+          <PersistGate loading ={null} persistor ={persistor}>
     <LayoutWrapper>
 
       <SWRConfig
@@ -20,7 +22,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       >
         <Component {...pageProps} />
       </SWRConfig>
+
     </LayoutWrapper>
+    </PersistGate>
     </Provider>
   )
 

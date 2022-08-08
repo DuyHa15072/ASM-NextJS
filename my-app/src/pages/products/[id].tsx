@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import useSWR from 'swr';
 import { ProductType } from "../../types/products";
-import { addToCart } from '../../features/Cart/CartSlice';
+import { addItem } from '../../features/Cart/CartSlice';
 import { useAppDispatch } from './../../app/hook';
 type Props = {}
 
@@ -10,10 +10,24 @@ const productsDetail = (props: Props) => {
   const router = useRouter();
   const { id } = router.query
   const dispath = useAppDispatch()
+  const [quantity, setQuantity] = useState<number>(1);
 
-  const addToCartHandler = (product: ProductType) => dispath(addToCart(product))
+  // const addToCartHandler = (product: ProductType) => dispath(addItem(product))
 
   const { data, error } = useSWR(id ? `/products/${id}` : null)
+
+  const addItemToCart = () => {
+    dispath(addItem({
+      _id: data?._id,
+      name: data?.name,
+      img: data?.img,
+      price: data?.price,
+
+      quantity: quantity
+    }));
+    router.push("/cart")
+    // alert("Thêm thành công.")
+  }
   if (!data) return <div>Load...</div>
   if (error) return <div>Error</div>
   return (
@@ -99,14 +113,16 @@ const productsDetail = (props: Props) => {
                 <div className="flex ml-6 items-center">
                   <span className="mr-3">Quantity</span>
                   <div className="">
-                    <input type="number" className="w-[80px] rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-[5px]">
-                    </input>
+                  <input min={1} onChange={(e) => {
+                        setQuantity(+e.target.value)
+                      }} defaultValue={1} type="number" className="w-[80px] rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-[5px]">
+                      </input>
                   </div>
                 </div>
               </div>
               <div className="flex">
                 <span className="title-font font-medium text-2xl text-gray-900">${data?.price}.00</span>
-                <button onClick={() => addToCartHandler(data)} className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">ADD</button>
+                <button onClick={() => addItemToCart()} className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">ADD</button>
 
               </div>
             </div>
