@@ -12,7 +12,6 @@ import postRoute from './routes/post';
 import categoryProductsRoute from './routes/categoryProducts';
 import categoryPostRoute from './routes/categoryPots';
 import authRoute from './routes/auth';
-import orderRoute from './routes/order';
 import blogRouter from './routes/blog'
 
 const app = express();
@@ -41,7 +40,6 @@ app.use('/api', blogRouter);
 app.use('/api', categoryProductsRoute);
 app.use('/api', categoryPostRoute);
 app.use('/api', authRoute);
-app.use('/api/orders', orderRoute);
 
 
 // connection

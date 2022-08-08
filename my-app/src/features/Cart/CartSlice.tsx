@@ -1,41 +1,33 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { RootState } from "../../app/store";
-import { ProductType } from "../../types/products";
-import { IProductState } from "../products/product.slice";
-
-interface CartProduct extends IProductState {
-  amount: number,
-}
-
-
-
+import React from 'react'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// import { toast } from "react-toastify";
 const cartSlice = createSlice({
-  name: "products",
-  initialState: [] as CartProduct[],
-  reducers: {
-    addToCart: (state, action: PayloadAction<ProductType>) => {
-      const productIdex = state.findIndex(product => product.id === action.payload.id);
-      console.log(productIdex);
-      if (productIdex !== -1) {
-        state[productIdex].amount += 1;
-      } else {
-        state.push({ ...action.payload, amount: 1 })
-      }
+    name: "cart",
+    initialState: {
+        items: [],
+        total: 0
     },
-    removeFromCart: (state, action: PayloadAction<string>) => {
-      const productIdex = state.findIndex(product => product.id === action.payload);
-      if (state[productIdex].amount > 1) {
-        state[productIdex].amount -= 1;
-      } else {
-        return state.filter(product => product.id !== action.payload)
-      }
+    reducers: {
+        addItem: (state, action) => {
+            const newItem = action.payload;
+            const existItem = state.items.find((item) => item._id === newItem._id);
+            if (!existItem) {
+                state.items.push(newItem);
+            } else {
+                existItem.quantity += action.payload.quantity;
+            }
+        },
+        getTotalItems: (state, action) => {
+            let total = 0;
+            for (let i = 0; i < state.items.length; i++) {
+                total += state.items[i].price * state.items[i].quantity
+            };
+            state.total = total;
+        },
+        removeItem: (state, action: PayloadAction) => {
+            state.items = state.items.filter(item => item._id !== action.payload);
+        }
     }
-  },
 })
-
-export const getCartProducts = (state: RootState) => state.cart;
-export const getTotalPrice = (state: RootState) => state.cart.reduce((acc, next) => acc += (next.amount * next.price), 0)
-
-export const { addToCart, removeFromCart } = cartSlice.actions;
-
-export default cartSlice.reducer;
+export const { addItem, removeItem, getTotalItems } = cartSlice.actions
+export default cartSlice.reducer
