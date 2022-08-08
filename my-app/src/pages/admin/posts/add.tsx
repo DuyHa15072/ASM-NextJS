@@ -1,19 +1,21 @@
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form';
-import LayoutAdmin from '../../../components/layout/admin';
-import userPosts from '../../../hooks/user-posts';
+import Link from 'next/link'
+import React, { useEffect, useState } from 'react';
+import { SubmitHandler, useForm, FormState } from 'react-hook-form';
+import { useRouter } from 'next/router'
+import LayoutAdmin from '../../../components/layout/admin'
 import { PostsType } from '../../../types/posts';
-type Props = {}
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { creactPost } from '../../../features/posts/post.slice';
+// import { creactBlog } from '../../../features/blog/blog.slice';
 
-const Add = (props: Props) => {
+const Add = () => {
+    const dispatch = useDispatch();
     const { register, handleSubmit, formState: { errors } } = useForm<any>();
     const [files, setFiles] = useState<any>([]);
 
     const router = useRouter()
-    const { error, create } = userPosts();
-   
+
 
     const CLOUDINARY_PRESET = "k9yoyn7r";
     const CLOUDINARY_API_URL = "https://api.cloudinary.com/v1_1/dev7lem1d/image/upload";
@@ -33,7 +35,7 @@ const Add = (props: Props) => {
                 });
                 imgLink.push(image.data.url)
             }
-            create(({...data, photo: imgLink[0]}))
+            dispatch(creactPost(({ ...data, img: imgLink[0] })))
             alert("Thêm thành công")
             console.log(data);
             router.push(`/admin/posts`)
@@ -58,8 +60,9 @@ const Add = (props: Props) => {
                 <form className="justify-center w-full mx-auto" method="post" onSubmit={handleSubmit(onSubmit)}>
                     <div className="">
                         <div className="mt-4">
+                            
                             <div className="w-full mb-[10px]">
-                                <label htmlFor="Name" className="block mb-3 text-sm font-semibold text-gray-500">Title</label>
+                                <label htmlFor="Name" className="block mb-3 text-sm font-semibold text-gray-500">Blog Name</label>
                                 <input type="text" {...register('title', { required: true, minLength: 5 })} placeholder="...." className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
                                 {errors.title && <span className='text-red-500'>Không để trống và nhập lớn hơn 5</span>}
                             </div>
@@ -72,10 +75,15 @@ const Add = (props: Props) => {
                                     })}
                                 </label>
                             </div>
+                            {/* <div className="w-full  mb-[10px]">
+                                <label htmlFor="Description" className="block mb-3 text-sm font-semibold text-gray-500">Content</label>
+                                <textarea rows={20} {...register('content', { required: true, minLength: 5 })} placeholder="...." className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
+                                {errors.content && <span className='text-red-500'>Không để trống và nhập lớn hơn 5</span>}
 
+                            </div> */}
                             <div className="w-full  mb-[10px]">
                                 <label htmlFor="Description" className="block mb-3 text-sm font-semibold text-gray-500">Description</label>
-                                <textarea rows={20} {...register('desc', { required: true })} placeholder="...." className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
+                                <textarea rows={20} {...register('desc', { required: true, minLength: 5 })} placeholder="...." className="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600" />
                                 {errors.desc && <span className='text-red-500'>Không để trống và nhập lớn hơn 5</span>}
 
                             </div>
@@ -89,5 +97,5 @@ const Add = (props: Props) => {
         </div>
     )
 }
-Add.Layout = LayoutAdmin
+Add.Layout = LayoutAdmin;
 export default Add

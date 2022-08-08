@@ -17,11 +17,11 @@ const NewsDetail = (props: Props) => {
         <div className="container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
           <div className="space-y-6 md:space-y-0 md:flex md:gap-6 lg:items-center lg:gap-12">
             <div className="md:5/12 lg:w-5/12">
-              <img src={data?.photo} alt="image" loading="lazy" width="" height="" />
+              <img src={data?.post.img} alt="image" loading="lazy" width="" height="" />
             </div>
             <div className="md:7/12 lg:w-6/12">
-              <h2 className="text-2xl text-gray-900 font-bold md:text-4xl">{data?.title}</h2>
-              <p className="mt-6 text-gray-600">{data?.desc}</p>
+              <h2 className="text-2xl text-gray-900 font-bold md:text-4xl">{data?.post.title}</h2>
+              <p className="mt-6 text-gray-600">{data?.post.desc}</p>
               {/* <p className="mt-4 text-gray-600"> Nobis minus voluptatibus pariatur dignissimos libero quaerat iure expedita at? Asperiores nemo possimus nesciunt dicta veniam aspernatur quam mollitia.</p> */}
             </div>
           </div>
