@@ -49,7 +49,7 @@ const Cart = () => {
                     Số lượng
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Tổng Giá <span className="amount">${cart.cartTotalAmount}</span>
+                    Tổng Giá <span className="amount"></span>
                   </th>
                 </tr>
               </thead>
@@ -113,7 +113,7 @@ const Cart = () => {
         </div>
       </div>
     </div>
-      <Link href={``} className='no-underline'>
+      <Link href="/Checkout" className='no-underline'>
         <button type="submit" className="mt-10  bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 no-underline ">Buy now</button>
       </Link>
     </div>
