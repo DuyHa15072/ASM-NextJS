@@ -1,19 +1,29 @@
 import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from '../../app/hook'
-import { getTotalItems, removeItem } from '../../features/Cart/CartSlice'
+import { getTotalItems, removeItem, increaseQuantity, decreaseQuantity, getTotals, getTotalPrice } from '../../features/Cart/CartSlice'
 import { ProductType } from '../../types/products'
 import Link from 'next/link'
 const Cart = () => {
   const dispatch = useAppDispatch();
   const itemsCart = useAppSelector(state => state.cart.items);
 
+
   useEffect(() => {
     dispatch(getTotalItems());
   }, [itemsCart])
+
+
   const remove = (_id: any) => {
     confirm("bạn có muốn xóa không? ");
     dispatch(removeItem(_id))
   };
+  const increase = (_id: any) => {
+    dispatch(increaseQuantity(_id))
+  }
+  const decrease = (_id: any) => {
+    dispatch(decreaseQuantity(_id))
+  }
   return (
     <div>  <div className="flex flex-col m-10">
       <h4>Cart</h4>
@@ -22,7 +32,7 @@ const Cart = () => {
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
             <table className="w-full whitespace-no-wrap">
               <thead>
-                <tr className="text-xs font-semibold tracking-wide text-left text-white uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 ">
+                <tr className="text-xs font-semibold tracking-wide text-left text-white uppercase border-b bg-gray-50 dark:text-gray-400 ">
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     STT
                   </th>
@@ -39,7 +49,7 @@ const Cart = () => {
                     Số lượng
                   </th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Tổng Giá
+                    Tổng Giá <span className="amount">${cart.cartTotalAmount}</span>
                   </th>
                 </tr>
               </thead>
@@ -72,25 +82,33 @@ const Cart = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <button data-id="${item.id}" className="btn btn-increase"></button>
+                        <button onClick={() => {
+                          increase(item._id)
+                        }} data-id="${item.id}" className="btn btn-increase">+</button>
                         {item.quantity}
-                        <button data-id="${item.id}" className="btn btn-decrease"></button>
+                        <button onClick={() => {
+                          decrease(item._id)
+                        }} data-id="${item.id}" className="btn btn-decrease">-</button>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {item.quantity * item.price}USA
                       </td>
                       <td>
-
                       </td>
                       <td>
                         <button onClick={() => remove(item._id)} className="btn btn-remove">Xóa</button>
                       </td>
 
                     </tr>
+
                   )
                 })}
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Tổng: <span className="amount"></span>
+                </th>
               </tbody>
             </table>
+
           </div>
         </div>
       </div>
